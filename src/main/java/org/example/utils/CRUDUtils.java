@@ -11,16 +11,10 @@ import java.util.List;
 
 public class CRUDUtils {
 
-    private final String ADD_STUDENT = "INSERT INTO test_table VALUES(?,?)";
-    private final String SELECT_ALL = "SELECT * FROM test_table";
-    private final String UPDATE_TABLE = "UPDATE test_table set name = ? where id = ?";
-    private final String DELETE_STUDENT = "DELETE FROM test_table where name = ?";
-
-
     public List<Student> addStudent(String id, String name){
         List<Student> listStudent = new ArrayList<>();
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(ADD_STUDENT)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.INSERT.getQuery())) {
             preparedStatement.setString(1, id);
             preparedStatement.setString(2, name);
             preparedStatement.executeUpdate();
@@ -34,7 +28,7 @@ public class CRUDUtils {
     public List<Student> getStudents() {
         List<Student> listStudent = new ArrayList<>();
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(SELECT_ALL)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT.getQuery())) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 String id = resultSet.getString("id");
@@ -50,7 +44,7 @@ public class CRUDUtils {
     public List<Student> updateStudents(String id, String name) {
         List<Student> listStudent = new ArrayList<>();
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_TABLE)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.UPDATE.getQuery())) {
             preparedStatement.setString(2, id);
             preparedStatement.setString(1, name);
             preparedStatement.executeUpdate();
@@ -64,7 +58,7 @@ public class CRUDUtils {
     public List<Student> deleteStudents(String studentName) {
         List<Student> listStudent = new ArrayList<>();
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(DELETE_STUDENT)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.DELETE.getQuery())) {
             preparedStatement.setString(1, studentName);
             preparedStatement.executeUpdate();
             listStudent = getStudents();
