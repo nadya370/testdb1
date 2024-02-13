@@ -22,7 +22,7 @@ public class StudentController {
     @GetMapping(value = "/id/{studentId}")
     public String getStudentName(@PathVariable int studentId){
         if (studentId == 2){
-            return studentService.getStudent().getName();
+            return "Name = " + studentService.getStudent().getName();
         }
         return "enter 2";
     }
@@ -30,7 +30,7 @@ public class StudentController {
     @GetMapping(value = "/name/{studentName}")
     public String getStudentName(@PathVariable String studentName){
         if (studentName.equals("Nadezhda")){
-            return studentService.getStudent().getId();
+            return "Id =" + studentService.getStudent().getId();
         }
         return "enter Nadezhda";
     }
