@@ -6,10 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Integer.*;
 
 public class CRUDUtils {
 
@@ -28,36 +28,23 @@ public class CRUDUtils {
         return  listStudent;
     }
 
-    public String getStudentName(String studentId) {
+    public String getStudentByString(String string, String firstArg, String secondArg) {
         String name = null;
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT_NAME_FROM_TEST_TABLE.getQuery())) {
-            preparedStatement.setString(1, studentId);
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    MessageFormat.format(QueryTypes.SELECT_FROM.getQuery(),
+                    firstArg,
+                    secondArg))) {
+            preparedStatement.setString(1, string);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                name = resultSet.getString("name");
+                name = resultSet.getString(firstArg);
             }
 
         }catch(SQLException e) {
             throw new RuntimeException(e);
         }
         return name;
-    }
-
-    public String getStudentId(String studentName) {
-        String id = null;
-        try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT_ID_FROM_TEST_TABLE.getQuery())) {
-            preparedStatement.setString(1, studentName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                id = resultSet.getString("id");
-            }
-
-        }catch(SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return id;
     }
 
     public List<Student> getStudents() {
