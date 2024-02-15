@@ -24,28 +24,36 @@ public class StudentController {
 
     @GetMapping(value = "/id/{studentId}")
     public String getStudentName(@PathVariable String studentId){
-        String name = null;
-        for (int i = 0; i < crudUtils.getStudents().size(); i++) {
-            if (studentService.getStudents(i).getId().equals(studentId)){
-                name = studentService.getStudents(i).getName();
-            }
-        }
-        if (name == null) {
-            return "Id \"" + studentId + "\" нет в бд";
+        String name;
+//        for (int i = 0; i < crudUtils.getStudents().size(); i++) {
+//            if (studentService.getStudents(i).getId().equals(studentId)){
+//                name = studentService.getStudents(i).getName();
+//            }
+//        }
+//        if (name == null) {
+//            return "Id \"" + studentId + "\" нет в бд";
+//        }
+        name = crudUtils.getStudentName(studentId);
+        if (name == null){
+            return "В бд нет такого id \"" + studentId+ "\"";
         }
         return name;
     }
 
     @GetMapping(value = "/name/{studentName}")
     public String getStudentId(@PathVariable String studentName){
-        String id = null;
-        for (int i = 0; i < crudUtils.getStudents().size(); i++) {
-            if (studentService.getStudents(i).getName().equals(studentName)){
-                id = studentService.getStudents(i).getId();
-            }
-        }
-        if (id == null) {
-            return "Name \"" + studentName +"\" нет в бд";
+        String id;
+//        for (int i = 0; i < crudUtils.getStudents().size(); i++) {
+//            if (studentService.getStudents(i).getName().equals(studentName)){
+//                id = studentService.getStudents(i).getId();
+//            }
+//        }
+//        if (id == null) {
+//            return "Name \"" + studentName +"\" нет в бд";
+//        }
+        id = crudUtils.getStudentId(studentName);
+        if (id == null){
+            return "В бд нет такого name \"" + studentName + "\"";
         }
         return id;
     }
