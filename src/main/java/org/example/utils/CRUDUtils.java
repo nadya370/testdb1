@@ -30,10 +30,9 @@ public class CRUDUtils {
 
     public String getStudentName(String studentId) {
         String name = null;
-        String query = "SELECT name, id FROM test_table WHERE id = '" + studentId + "'";
-        QueryTypes.SELECT_FROM_TEST_TABLE.setQuery(query);
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT_FROM_TEST_TABLE.getQuery())) {
+            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT_NAME_FROM_TEST_TABLE.getQuery())) {
+            preparedStatement.setString(1, studentId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 name = resultSet.getString("name");
@@ -47,10 +46,9 @@ public class CRUDUtils {
 
     public String getStudentId(String studentName) {
         String id = null;
-        String query = "SELECT name, id FROM test_table WHERE name = '" + studentName + "'";
-        QueryTypes.SELECT_FROM_TEST_TABLE.setQuery(query);
         try(Connection conn = new DBConnection().getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT_FROM_TEST_TABLE.getQuery())) {
+            PreparedStatement preparedStatement = conn.prepareStatement(QueryTypes.SELECT_ID_FROM_TEST_TABLE.getQuery())) {
+            preparedStatement.setString(1, studentName);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 id = resultSet.getString("id");
