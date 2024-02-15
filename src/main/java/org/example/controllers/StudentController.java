@@ -33,7 +33,7 @@ public class StudentController {
 //        if (name == null) {
 //            return "Id \"" + studentId + "\" нет в бд";
 //        }
-        name = crudUtils.getStudentByString(studentId, "name", "id");
+        name = crudUtils.getStudentByString(studentId, "name", "test_table", "id");
         if (name == null){
             return "В бд нет такого id \"" + studentId+ "\"";
         }
@@ -51,7 +51,7 @@ public class StudentController {
 //        if (id == null) {
 //            return "Name \"" + studentName +"\" нет в бд";
 //        }
-        id = crudUtils.getStudentByString(studentName, "id", "name");
+        id = crudUtils.getStudentByString(studentName, "id","test_table", "name");
         if (id == null){
             return "В бд нет такого name \"" + studentName + "\"";
         }

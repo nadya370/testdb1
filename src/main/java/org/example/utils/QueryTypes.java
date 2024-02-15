@@ -1,11 +1,11 @@
 package org.example.utils;
 
 public enum QueryTypes{
-    INSERT("INSERT INTO test_table VALUES(?,?)"),
-    DELETE("DELETE FROM test_table where name = ?"),
-    SELECT("SELECT * FROM test_table"),
-    SELECT_FROM("SELECT {0} FROM test_table WHERE {1} = ?"),
-    UPDATE("UPDATE test_table set name = ? where id = ?");
+    INSERT("INSERT INTO {0} VALUES(?,?)"),
+    DELETE("DELETE FROM {0} where {1} = ?"),
+    SELECT("SELECT {0} FROM {1}"),
+    SELECT_FROM("SELECT {0} FROM {1} WHERE {2} = ?"),
+    UPDATE("UPDATE {0} set {1} = ? where {2} = ?");
 
     private final String query;
 

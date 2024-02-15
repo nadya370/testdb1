@@ -14,12 +14,12 @@ public class StudentService implements StudentServiceInterface {
     @Override
     public Student getStudent() {
         CRUDUtils crudUtils = new CRUDUtils();
-        return crudUtils.getStudents().get(0);
+        return crudUtils.getStudents("*", "test_table").get(0);
     }
 
     public Student getStudents(int index){
         CRUDUtils crudUtils = new CRUDUtils();;
-        return crudUtils.getStudents().get(index);
+        return crudUtils.getStudents("*", "test_table").get(index);
     }
 
 
